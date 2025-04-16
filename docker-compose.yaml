@@ -1,0 +1,14 @@
+services:
+  backend:
+    build: ./backendTerrarium
+    container_name: backend-terrarium
+    network_mode: host
+    restart: unless-stopped
+
+  websocket:
+    build: ./websocket
+    container_name: websocket-server
+    ports:
+      - "8082:8082"
+    command: node server.mjs
+    restart: unless-stopped
