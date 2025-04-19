@@ -1,9 +1,17 @@
+version: '3.8'
+
 services:
   backend:
     build: ./backendTerrarium
     container_name: backend-terrarium
     network_mode: host
     restart: unless-stopped
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3307/terraSystem
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=devpass
+    depends_on:
+      - mysql-dev
 
   websocket:
     build: ./websocket
@@ -12,3 +20,18 @@ services:
       - "8082:8082"
     command: node server.mjs
     restart: unless-stopped
+
+  mysql-dev:
+    image: mysql:8
+    container_name: terra-db-dev
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: devpass
+      MYSQL_DATABASE: terraSystem
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_dev_data:/var/lib/mysql
+
+volumes:
+  mysql_dev_data:
