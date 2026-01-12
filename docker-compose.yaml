@@ -4,14 +4,32 @@ services:
   backend:
     build: ./backendTerrarium
     container_name: backend-terrarium
-    network_mode: host
     restart: unless-stopped
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3307/terraSystem
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=devpass
     depends_on:
       - mysql-dev
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-dev:3306/terraSystem
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=devpass
+
+        
+  user-shop-service:
+    build: ./user-shop-service
+    container_name: user-shop-service
+    ports:
+      - "8083:8080"
+    restart: unless-stopped
+    depends_on:
+      - mysql-dev
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-dev:3306/terraSystem
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=devpass
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+
+
 
   websocket:
     build: ./websocket
