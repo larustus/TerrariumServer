@@ -1,0 +1,4 @@
+[submodule "user-shop-service"]
+	path = user-shop-service
+	url = https://github.com/larustus/user-shop-service.git
+	branch = dev-working-changes
