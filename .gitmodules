@@ -2,3 +2,8 @@
 	path = user-shop-service
 	url = https://github.com/larustus/user-shop-service.git
 	branch = dev-working-changes
+
+[submodule "backendTerrarium"]
+	path = backendTerrarium
+	url = https://github.com/larustus/backendTerrarium.git
+	branch = dev-working-changes
